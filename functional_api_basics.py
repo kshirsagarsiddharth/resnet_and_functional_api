@@ -1,6 +1,7 @@
 #%%
 import numpy as np 
-import tensorflow as tf 
+import tensorflow as tf
+from tensorflow import keras 
 from tensorflow.keras import layers 
 
 """
@@ -34,5 +35,16 @@ from tensorflow.keras import layers
 inputs = tf.keras.Input(shape=(784,))
 dense1 = layers.Dense(64, activation='relu') (inputs)
 dense2 = layers.Dense(64, activation='relu')(dense1) 
-output = layers.Dense(10)(dense2) 
+outputs = layers.Dense(10)(dense2) 
 
+# creating the model 
+model = tf.keras.Model(inputs = inputs, outputs = outputs, name = 'mnist_model')  
+model.summary()
+from tensorflow.keras.utils import plot_model
+plot_model(model, to_file='model.png')
+# %%
+#import tf.keras
+keras.utils.plot_model(model, "my_first_model_with_shape_info.png", show_shapes=True)
+# %%
+
+# %%
