@@ -44,3 +44,27 @@ print ("Y_test shape: " + str(Y_test.shape))
 
 
 ## defining a simple model in keras 
+def model(input_shape): 
+    X_input = tf.keras.Input(input_shape) 
+
+    # zero padding 
+    X = tf.keras.layers.ZeroPadding2D((3,3))(X_input) 
+
+    # CONV -> BN -> RELU Block applied to X
+    X = tf.keras.layers.Conv2D(filters = 32, kernel_size= (7,7), name = 'conv0')(X) 
+    X = tf.keras.layers.BatchNormalization(axis = 3, name = 'bn0')(X) 
+    X = tf.keras.layers.Activation('relu')(X)   
+
+    # MAXPOOL 
+    X = tf.keras.layers.MaxPool2D(name = 'max_pool')(X) 
+
+    X = tf.keras.layers.Flatten()(X) 
+
+    X = tf.keras.layers.Dense(1, activation='sigmoid', name = 'fc')(X) 
+
+    model = tf.keras.Model(inputs = X_input, output = X, name = 'HappyModel') 
+
+    return model 
+
+
+
